@@ -1,9 +1,11 @@
 <script setup>
-	import facts_json from "@/assets/paco_facts.json"
+	import { ref, onBeforeMount, computed } from 'vue'
+
   import Roulette from "@/components/Roulette.vue"
-	import { ref, onBeforeMount } from 'vue'
+	import facts_json from "@/assets/paco_facts.json"
 
 	const fact = ref("")
+  const title = computed(() => { return fact.value.startsWith("le ") ? "¿SABÍAS QUE A PACO..." : "¿SABÍAS QUE PACO..."})
 
 	const getRandomFact = () => {
 		return facts_json[Math.floor(Math.random() * facts_json.length)]
@@ -16,12 +18,13 @@
 	onBeforeMount(() => {
 		updateRandomFact()
 	})
+
 </script>
 
 <template>
 	<body class="fact-container">
 		<div class="fact-text">
-      <h1>¿SABÍAS QUE PACO...</h1>
+      <h1>{{ title }}</h1>
       <h2 id="fact">{{ fact }}?</h2>
     </div>
     <Roulette @spinned="updateRandomFact"/>
@@ -35,7 +38,6 @@
     padding: 0.8rem;
     border: solid 1px var(--vt-c-black);
     border-radius: 0.4rem;
-    box-shadow: 1px;
   }
 
   .fact-container {
