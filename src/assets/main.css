@@ -38,7 +38,11 @@ a,
     place-items: center;
   }
 
+  .fact-container {
+    min-width: 80vw;
+  }
+
   body#app-container {
     background-size: contain;
   }
-  }
+}
