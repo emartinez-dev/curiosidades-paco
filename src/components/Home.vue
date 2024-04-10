@@ -5,7 +5,15 @@
 	import facts_json from "@/assets/paco_facts.json"
 
 	const fact = ref("")
-  const title = computed(() => { return fact.value.startsWith("le ") ? "¿SABÍAS QUE A PACO..." : "¿SABÍAS QUE PACO..."})
+  const title = computed(() => {
+    if (fact.value.startsWith("le "))
+      return "¿SABÍAS QUE A PACO..."
+    else if (fact.value.startsWith("su ") || fact.value.startsWith("sus ") ||
+      fact.value.startsWith("la ") || fact.value.startsWith("las ") ||
+      fact.value.startsWith("el ") || fact.value.startsWith("los "))
+      return "¿SABÍAS QUE ..."
+    return "¿SABÍAS QUE PACO..."
+  })
 
 	const getRandomFact = () => {
 		return facts_json[Math.floor(Math.random() * facts_json.length)]
