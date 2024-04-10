@@ -4,12 +4,8 @@ import HomeView from '@/views/HomeView.vue';
 </script>
 
 <template>
-  <header>
-  </header>
-  <body>
-    <HomeView />
-  </body>
+  <HomeView />
 </template>
 
-<style scoped>
+<style>
 </style>

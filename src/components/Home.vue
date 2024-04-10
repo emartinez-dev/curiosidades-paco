@@ -18,13 +18,23 @@
 </script>
 
 <template>
-	<div>
-		<h1>Curiosidades Paco</h1>
-		<h2>¿Sabías que Paco..</h2>
-		<h3>{{ fact }}?</h3>
+	<body class="fact-container">
+		<h1>¿Sabías que Paco..</h1>
+		<h2 id="fact">{{ fact }}?</h2>
 		<button @click="updateRandomFact()">Nueva curiosidad</button>
-	</div>
+	</body>
 </template>
 
 <style scoped>
+  #fact {
+    background-color: var(--vt-c-white-soft);
+    text-align: center;
+  }
+
+  .fact-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
