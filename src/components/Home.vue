@@ -36,6 +36,10 @@
       <h2 id="fact">{{ fact }}?</h2>
     </div>
     <Roulette @spinned="updateRandomFact"/>
+    <div class="footer">
+      <p>Happy birthday!!</p>
+      <p>Hecho con ❤️ por tus amigos</p>
+    </div>
 	</body>
 </template>
 
@@ -51,8 +55,12 @@
   .fact-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
+  }
+
+  .fact-container > div:not(:last-child) {
+    margin-bottom: 20px;
   }
 
   .fact-text {
@@ -64,5 +72,11 @@
 
   .fact-text > * {
     margin: 1rem;
+  }
+
+  .footer {
+    text-transform: uppercase;
+    margin-top: auto;
+    text-align: center;
   }
 </style>

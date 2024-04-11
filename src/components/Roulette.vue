@@ -16,9 +16,9 @@ function spin() {
 
 <template>
   <div class="roulette-container">
-    <p>Tira de la ruleta y descubre más curiosidades sobre Paco !</p>
+    <h4>Tira de la ruleta y descubre más curiosidades sobre Paco !</h4>
     <div class="container">
-      <button id="spin" @click="spin">otra!</button>
+      <button id="spin" @click="spin">¡Dale!</button>
       <div class="one"></div>
       <div class="two"></div>
       <div class="three"></div>
@@ -49,10 +49,11 @@ function spin() {
   transition: 3s;
 }
 
-p {
+.roulette-container > h4 {
   text-wrap: pretty;
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .container div {
@@ -74,42 +75,42 @@ p {
 }
 
 .container .one {
-  background-color: #3f51b5;
+  background-color: #D327EF;
   left: 50%;
 }
 
 .container .two {
-  background-color: #ff9800;
+  background-color: #EF2787;
   transform: rotate(45deg);
 }
 
 .container .three {
-  background-color: #e91e63;
+  background-color: #063DFF;
   transform: rotate(90deg);
 }
 
 .container .four {
-  background-color: #4caf50;
+  background-color: #5552FF;
   transform: rotate(135deg);
 }
 
 .container .five {
-  background-color: #009688;
+  background-color: #00EED1;
   transform: rotate(180deg);
 }
 
 .container .six {
-  background-color: #795548;
+  background-color: #27DAAF;
   transform: rotate(225deg);
 }
 
 .container .seven {
-  background-color: #9c27b0;
+  background-color: #FF5C00;
   transform: rotate(270deg);
 }
 
 .container .eight {
-  background-color: #f44336;
+  background-color: #FF0F00;
   transform: rotate(315deg);
 }
 
