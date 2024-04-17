@@ -1,11 +1,31 @@
 <script setup>
-	import { ref, onBeforeMount, computed } from 'vue'
+	import { ref, onMounted, computed } from 'vue'
+	import { getFirestore, collection, getDocs } from "firebase/firestore"
+	import firebase from '@/firebase.js'
+	import fallbackFacts from "@/assets/paco_facts.json"
 
-  import Roulette from "@/components/Roulette.vue"
-	import facts_json from "@/assets/paco_facts.json"
+    import Roulette from "@/components/Roulette.vue"
+
+	let facts_json = []
 
 	const fact = ref("")
-  const title = computed(() => {
+
+	const db = getFirestore(firebase);
+	const querySnapshot = await getDocs(collection(db, "facts"))
+		.then((doc) => {
+			if (doc.data().verified)
+				facts_json.push(doc.data().fact)
+		})
+		.catch((error) => {
+			console.log("Error getting the facts:", error)
+			facts_json = fallbackFacts
+		})
+
+	const title = computed(() => {
+	if (!fact.value) {
+		getRandomFact()
+		return ""
+	}
     if (fact.value.startsWith("le "))
       return "¿SABÍAS QUE A PACO..."
     else if (fact.value.startsWith("su ") || fact.value.startsWith("sus ") ||
@@ -23,7 +43,7 @@
 		fact.value = getRandomFact()
 	}
 
-	onBeforeMount(() => {
+	onMounted(() => {
 		updateRandomFact()
 	})
 

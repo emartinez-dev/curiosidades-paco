@@ -3,5 +3,10 @@ import Home from '@/components/Home.vue'
 </script>
 
 <template>
-  <Home />
+	<Suspense>
+	<Home />
+	<template #fallback>
+		Cargando...
+	</template>
+	</Suspense>
 </template>
