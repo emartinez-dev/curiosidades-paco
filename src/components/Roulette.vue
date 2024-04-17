@@ -1,4 +1,6 @@
 <script setup>
+import { defineEmits } from 'vue'
+
 const emit = defineEmits(['spinned'])
 // got it from this pen: https://codepen.io/GhostCode99/pen/BaQePwW
 // thank you @Ghostcode99
