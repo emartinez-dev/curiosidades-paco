@@ -2,8 +2,13 @@
 import { ref, onBeforeMount, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
+import { useToast } from 'primevue/usetoast';
+import Toast from 'primevue/toast'
+
 import API from '@/services/api.js'
 import Roulette from "@/components/Roulette.vue"
+
+const toast = useToast()
 
 const fact = ref("")
 const title = computed(() => {
@@ -21,7 +26,10 @@ const getRandomFact = () => {
     fact.value = response.data.text
   })
     .catch((error) => {
-      fact.value = "Ha habido un problema, que alguien haga algo!"
+      toast.add({
+        severity: 'error', summary: 'Mierda',
+        detail: 'Creo que se ha caido la API', life: 3000
+      })
       console.error(error)
     })
 }
@@ -32,6 +40,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
+  <Toast />
   <body class="fact-container">
     <div class="fact-text">
       <h1>{{ title }}</h1>
