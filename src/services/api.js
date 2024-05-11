@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://econolistos.com:8000'
+const baseURL = 'https://econolistos.com:8000'
 
 const API = axios.create({ baseURL });
 
