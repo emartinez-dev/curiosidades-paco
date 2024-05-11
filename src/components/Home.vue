@@ -1,82 +1,84 @@
 <script setup>
-	import { ref, onBeforeMount, computed } from 'vue'
+import { ref, onBeforeMount, computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
-  import Roulette from "@/components/Roulette.vue"
-	import facts_json from "@/assets/paco_facts.json"
+import API from '@/services/api.js'
+import Roulette from "@/components/Roulette.vue"
 
-	const fact = ref("")
-  const title = computed(() => {
-    if (fact.value.startsWith("le "))
-      return "¿SABÍAS QUE A PACO..."
-    else if (fact.value.startsWith("su ") || fact.value.startsWith("sus ") ||
-      fact.value.startsWith("la ") || fact.value.startsWith("las ") ||
-      fact.value.startsWith("el ") || fact.value.startsWith("los "))
-      return "¿SABÍAS QUE ..."
-    return "¿SABÍAS QUE PACO..."
+const fact = ref("")
+const title = computed(() => {
+  if (fact.value.startsWith("le "))
+    return "¿SABÍAS QUE A PACO..."
+  else if (fact.value.startsWith("su ") || fact.value.startsWith("sus ") ||
+    fact.value.startsWith("la ") || fact.value.startsWith("las ") ||
+    fact.value.startsWith("el ") || fact.value.startsWith("los "))
+    return "¿SABÍAS QUE ..."
+  return "¿SABÍAS QUE PACO..."
+})
+
+const getRandomFact = () => {
+  API.getRandomFact().then((response) => {
+    fact.value = response.data.text
   })
+    .catch((error) => {
+      fact.value = "Ha habido un problema, que alguien haga algo!"
+      console.error(error)
+    })
+}
 
-	const getRandomFact = () => {
-		return facts_json[Math.floor(Math.random() * facts_json.length)]
-	}
-
-	const updateRandomFact = () => {
-		fact.value = getRandomFact()
-	}
-
-	onBeforeMount(() => {
-		updateRandomFact()
-	})
-
+onBeforeMount(() => {
+  getRandomFact()
+})
 </script>
 
 <template>
-	<body class="fact-container">
-		<div class="fact-text">
+  <body class="fact-container">
+    <div class="fact-text">
       <h1>{{ title }}</h1>
       <h2 id="fact">{{ fact }}?</h2>
     </div>
-    <Roulette @spinned="updateRandomFact"/>
+    <Roulette @spinned="getRandomFact" />
     <div class="footer">
       <p>Happy birthday!!</p>
-      <p>Hecho con ❤️ por tus amigos</p>
+      <p>Hecho con <router-link to="/add-one/">❤️</router-link> por tus amigos</p>
     </div>
-	</body>
+  </body>
 </template>
 
-<style scoped>
-  #fact {
-    background-color: var(--vt-c-white-soft);
-    text-align: center;
-    padding: 0.8rem;
-    border: solid 1px var(--vt-c-black);
-    border-radius: 0.4rem;
-  }
+<style>
+#fact {
+  background-color: var(--vt-c-white-soft);
+  text-align: center;
+  padding: 0.8rem;
+  border: solid 1px var(--vt-c-black);
+  border-radius: 0.4rem;
+}
 
-  .fact-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
+.fact-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-  .fact-container > div:not(:last-child) {
-    margin-bottom: 20px;
-  }
+.fact-container>div:not(:last-child) {
+  margin-bottom: 20px;
+}
 
-  .fact-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+.fact-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-  .fact-text > * {
-    margin: 1rem;
-  }
+.fact-text>* {
+  margin: 1rem;
+}
 
-  .footer {
-    text-transform: uppercase;
-    margin-top: auto;
-    text-align: center;
-  }
+.footer {
+  text-transform: uppercase;
+  margin-top: auto;
+  text-align: center;
+}
 </style>
