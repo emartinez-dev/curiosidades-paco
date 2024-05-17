@@ -17,6 +17,10 @@ export default {
   getFactById(factId) {
     return API.get(`/facts/${factId}/`);
   },
+  // Get number of facts
+  getNumberOfFacts() {
+    return API.get(`/facts_total/`);
+  },
   // Create a new fact
   createFact(data) {
     return API.post('/facts/', data);

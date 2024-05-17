@@ -11,6 +11,7 @@ import Roulette from "@/components/Roulette.vue"
 const toast = useToast()
 
 const fact = ref("")
+const numberOfFacts = ref(0)
 const title = computed(() => {
   if (fact.value.startsWith("le "))
     return "¿SABÍAS QUE A PACO..."
@@ -34,8 +35,22 @@ const getRandomFact = () => {
     })
 }
 
+const getNumberOfFacts = () => {
+  API.getNumberOfFacts().then((response) => {
+    numberOfFacts.value = response.data
+  })
+    .catch((error) => {
+      toast.add({
+        severity: 'error', summary: 'Mierda',
+        detail: 'Creo que se ha caido la API', life: 3000
+      })
+      console.error(error)
+    })
+}
+
 onBeforeMount(() => {
   getRandomFact()
+  getNumberOfFacts()
 })
 </script>
 
@@ -48,7 +63,7 @@ onBeforeMount(() => {
     </div>
     <Roulette @spinned="getRandomFact" />
     <div class="footer">
-      <p>Happy birthday!!</p>
+      <p>Tenemos {{ numberOfFacts }} curiosidades sobre Paco</p>
       <p>Hecho con <router-link to="/add-one/">❤️</router-link> por tus amigos</p>
     </div>
   </body>
